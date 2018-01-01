@@ -1,5 +1,6 @@
 import HTTPClient from './httpclient'
 import Session from './session'
+import fs from 'fs'
 
 class Client {
   http: HTTPClient
@@ -110,14 +111,16 @@ class Client {
     return new Session(httpclient, value)
   }
 
-  // screenshot (pngFilename: string) {
-  //   // Screenshot with PNG format
-  //   // Args:
-  //   //     png_filename(string): optional, save file name
-  //   // Returns:
-  //   //     png raw data
-
-  // }
+  async screenshot (pngFilename: string) {
+    // Screenshot with PNG format
+    // Args:
+    //     png_filename(string): optional, save file name
+    // Returns:
+    //     png raw data
+    const { value } = await this.http.fetch('get', 'screenshot')
+    fs.writeFileSync(pngFilename, value, 'base64')
+    return value
+  }
 }
 
 export default Client
