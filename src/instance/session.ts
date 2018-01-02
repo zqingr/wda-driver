@@ -1,5 +1,6 @@
 import HTTPClient from './httpclient'
 import Alert from './alert'
+import Selector, { SelectorObj } from './selector'
 
 class Session {
   http: HTTPClient
@@ -118,6 +119,11 @@ class Session {
 
   close () {
     return this.http.fetch('delete', '/')
+  }
+  
+  selector (selectorObj: SelectorObj) {
+    const httpclient = this.http.newClient('')
+    return new Selector(httpclient, this, selectorObj)
   }
 
   /**

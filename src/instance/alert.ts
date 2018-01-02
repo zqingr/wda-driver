@@ -11,7 +11,7 @@ class Alert {
     this.http = session.http
   }
 
-  private async exists () {
+  async exists () {
     try {
       await this.text()
     } catch (e) {
@@ -20,7 +20,7 @@ class Alert {
     return true
   }
 
-  private async text () {
+  async text () {
     const { value } = await this.http.fetch('get', '/alert/text')
     return value
   }

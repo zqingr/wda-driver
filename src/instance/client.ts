@@ -111,12 +111,13 @@ class Client {
     return new Session(httpclient, value)
   }
 
-  async screenshot (pngFilename: string) {
-    // Screenshot with PNG format
-    // Args:
-    //     png_filename(string): optional, save file name
-    // Returns:
-    //     png raw data
+  /**
+   * Screenshot with PNG format
+   * 
+   * @param pngFilename optional, save file name
+   * @return png raw data
+   */
+  async screenshot (pngFilename: string = 'screenshot.png') {
     const { value } = await this.http.fetch('get', 'screenshot')
     fs.writeFileSync(pngFilename, value, 'base64')
     return value

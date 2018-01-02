@@ -17,7 +17,6 @@
 		"forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
 		"noImplicitReturns": true,
-		"declaration": true,
 		"outDir": "./dist",
     "typeRoots": [
       "node_modules/@types"
