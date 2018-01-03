@@ -2,6 +2,7 @@ import Session from "./session";
 import HTTPClient from './httpclient'
 import ELEMENTS from '../config/xcuiElementTypes'
 import sleep from '../util/sleep'
+import Element from './element'
 
 interface SelectorObj {
   predicate: string // predicate string
