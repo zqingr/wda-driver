@@ -113,7 +113,7 @@ class Session {
     return this.swipe(width/2, height/2 - 150, width/2, height/2 + 150)
   }
 
-  alert () {
+  alert (): Alert {
     return new Alert(this)
   }
 

@@ -244,7 +244,7 @@ class Selector {
      await sleep(10)
     }
     // check alert again
-    const exists = await this.session.alert.exists()
+    const exists = await this.session.alert().exists()
     if (exists && this.http.alertCallback) {
       this.http.alertCallback()
       return await this.get(timeout)
