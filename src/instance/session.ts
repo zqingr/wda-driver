@@ -26,12 +26,12 @@ class Session {
     this.sid = value.sessionId
   }
 
-  protected id () {
+  protected getId () {
     return this.sid
   }
 
   // the session matched bundle id
-  protected bundleId () {
+  protected getBundleId () {
     return this.capabilities.CFBundleIdentifier
   }
   

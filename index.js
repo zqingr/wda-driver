@@ -28,7 +28,7 @@ async function start () {
   // await s.swipe(88, 200, 288, 200)
 
   // const s = await c.session()
-  console.log(s.id(), s.bundleId())
+  console.log(s.getId(), s.getBundleId())
 }
 
 start()

@@ -96,7 +96,7 @@ await s.close()
 ### Session operations
 ```python
 # Current bundleId and sessionId
-print s.bundle_id, s.id
+console.log(s.getBundleId(), s.getId())
 
 # One of <PORTRAIT | LANDSCAPE>
 print s.orientation # expect PORTRAIT
