@@ -29,6 +29,7 @@ async function start () {
 
   // const s = await c.session()
   console.log(s.getId(), s.getBundleId())
+  console.log(await s.orientation())
 }
 
 start()
