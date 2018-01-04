@@ -16,15 +16,19 @@ const c = new wda.Client('http://localhost:8100')
 
 async function start () {
   // console.log(await c.status())
-  await c.screenshot('./test/screenshot/1.png')
+  // await c.screenshot('./test/screenshot/1.png')
   // const data = await c.source('xml', true)
-  // const s = await c.session()
-  const s = await c.session('com.apple.Health')
-  console.log(await s.orientation())
+  const s = await c.session()
+  // const s = await c.session('com.apple.mobilesafari', ['-u', 'https://www.google.com/ncr'])
+  // console.log(await s.orientation())
+  // console.log(await s.close())
   // await s.tap(588, 1866)
   // await s.tap(88, 1266)
   // await s.tap(88, 200)
   // await s.swipe(88, 200, 288, 200)
+
+  // const s = await c.session()
+  console.log(s.id(), s.bundleId())
 }
 
 start()

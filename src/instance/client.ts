@@ -82,7 +82,7 @@ class Client {
       }
 
       const http = this.http.newClient('session/' + sid)
-      const value = await http.fetch('get', '/')
+      const { value } = await http.fetch('get', '/')
       return await new Session(http, value)
     }
 

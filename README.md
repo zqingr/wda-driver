@@ -45,7 +45,7 @@ import wda from wda
 
 const c = new wda.Client('http://localhost:8100')
 
-# http://localhost:8100 is the default value if $DEVICE_URL is empty
+// http://localhost:8100 is the default value if $DEVICE_URL is empty
 c = wda.Client()
 ```
 
@@ -54,47 +54,43 @@ c = wda.Client()
 
 ### Client
 
-```py
-# Show status
-print c.status()
+```javascript
+// Show status
+console.log(await c.status())
 
-# Press home button
-c.home()
+// Press home button
+await c.home()
 
-# Hit healthcheck
-c.healthcheck()
+// Hit healthcheck
+await c.healthcheck()
 
-# Get page source
-c.source() # format XML
-c.source(accessible=True) # default false, format JSON
+// Get page source
+
+// format (str): only 'xml' and 'json' source types are supported
+// accessible (bool): when set to true, format is always 'json'
+const source = await c.source() // format XML
+const source = await c.source(null, true) // default false, format JSON
 ```
 
 Take screenshot, only can save format png
 
-```py
-c.screenshot('screen.png')
+```javascript
+await c.screenshot('screen.png')
 ```
 
 Open app
 
-```py
-with c.session('com.apple.Health') as s:
-	print s.orientation
-```
-
-Same as
-
-```py
-s = c.session('com.apple.Health')
-print s.orientation
-s.close()
+```javascript
+const s = await c.session('com.apple.Health')
+console.log(await s.orientation())
+await s.close()
 ```
 
 For web browser like Safari you can define page whit which will be opened:
-```python
-s = c.session('com.apple.mobilesafari', ['-u', 'https://www.google.com/ncr'])
-print s.orientation
-s.close()
+```javascript
+const s = await c.session('com.apple.mobilesafari', ['-u', 'https://www.google.com/ncr'])
+console.log(await s.orientation())
+await s.close()
 ```
 
 ### Session operations
