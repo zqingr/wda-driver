@@ -113,6 +113,15 @@ class Session {
     return this.swipe(width/2, height/2 - 150, width/2, height/2 + 150)
   }
 
+  /**
+   * @param orientation  LANDSCAPE | PORTRAIT | UIA_DEVICE_ORIENTATION_LANDSCAPERIGHT |
+                    UIA_DEVICE_ORIENTATION_PORTRAIT_UPSIDEDOWN
+   */
+  async orientation (orientation: string) {
+    const { value } = orientation ? await this.http.fetch('get', 'orientation') : await this.http.fetch('post', 'orientation', { orientation })
+    return value
+  }
+
   alert (): Alert {
     return new Alert(this)
   }

@@ -20,7 +20,7 @@ async function start () {
   // const data = await c.source('xml', true)
   // const s = await c.session()
   const s = await c.session('com.apple.Health')
-  console.log(s.orientation)
+  console.log(await s.orientation())
   // await s.tap(588, 1866)
   // await s.tap(88, 1266)
   // await s.tap(88, 200)

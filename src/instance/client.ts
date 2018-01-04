@@ -42,7 +42,7 @@ class Client {
     return res.value
   }
 
-  async session (bundleId?: string, args?: string[] = [], environment?: any = {}) {
+  async session (bundleId?: string, args: string[] = [], environment: any = {}) {
     // Args:
     //     - bundle_id (str): the app bundle id
     //     - arguments (list): ['-u', 'https://www.google.com/ncr']
