@@ -28,8 +28,13 @@ async function start () {
   // await s.swipe(88, 200, 288, 200)
 
   // const s = await c.session()
-  console.log(s.getId(), s.getBundleId())
-  console.log(await s.orientation())
+  // console.log(s.getId(), s.getBundleId())
+  // console.log(await s.orientation())
+  // console.log(await s.getWindowSize())
+  // await s.swipe(100, 400, 200, 400, .1)
+  // await s.tapHold(100, 400, 8)
+  // await s.keyboardDismiss()
+  console.log(await s.selector(id="URL").exists)
 }
 
 start()

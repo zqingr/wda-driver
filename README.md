@@ -99,38 +99,36 @@ console.log(s.getId(), s.getBundleId())
 console.log(await s.orientation()) // expect PORTRAIT
 
 // Change orientation
-s.orientation = wda.LANDSCAPE // there are many other directions
+// LANDSCAPE | PORTRAIT | UIA_DEVICE_ORIENTATION_LANDSCAPERIGHT |UIA_DEVICE_ORIENTATION_PORTRAIT_UPSIDEDOWN
+await s.orientation(orientation)
 
 // Deactivate App for some time
-s.deactivate(5.0) // 5s
+await s.deactivate(5) // 5s
 
 // Get width and height
-print s.window_size()
+console.log(await s.getWindowSize())
 // Expect json output
-// For example: {u'height': 736, u'width': 414}
+// For example: {'height': 736, 'width': 414}
 
 // Simulate touch
-s.tap(200, 200)
+await s.tap(88, 200)
 
 // Double touch
-s.double_tap(200, 200)
+await s.doubleTap(200, 200)
 
 // Simulate swipe, utilizing drag api
-s.swipe(x1, y1, x2, y2, 0.5) # 0.5s
-s.swipe_left()
-s.swipe_right()
-s.swipe_up()
-s.swipe_down()
+await s.swipe(x1, y1, x2, y2, 0.5) // 0.5s
+await s.swipeLeft()
+await s.swipeRight()
+await s.swipeUp()
+await s.swipeDown()
 
 // tap hold
-s.tap_hold(x, y, 1.0)
-
-// Hide keyboard (not working in simulator), did not success using latest WDA
-s.keyboard_dismiss()
+await s.tapHold(x, y, 1.0)
 ```
 
 ### Find element
-> Note: if element not found, `WDAElementNotFoundError` will be raised
+> Note: if element not found, will throw error
 
 ```python
 // For example, expect: True or False
