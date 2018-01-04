@@ -2,26 +2,28 @@
 
 Facebook WebDriverAgent Node Client Library (not official)
 
+This project is a transplant of  this project https://github.com/openatx/facebook-wda
+
 Most functions finished.
 
 ## Installation
 1. You need to start WebDriverAgent by yourself
 
-	Follow the instructions in <https://github.com/facebook/WebDriverAgent>
+ Follow the instructions in <https://github.com/facebook/WebDriverAgent>
 
-	It is better to start with Xcode to prevent CodeSign issues.
+ It is better to start with Xcode to prevent CodeSign issues.
 
-	But it is also ok to start WDA with command line.
+ But it is also ok to start WDA with command line.
 
-	```
-	xcodebuild -project WebDriverAgent.xcodeproj -scheme WebDriverAgentRunner -destination 'platform=iOS Simulator,name=iPhone 6' test
-	```
+ ```
+ xcodebuild -project WebDriverAgent.xcodeproj -scheme WebDriverAgentRunner -destination 'platform=iOS Simulator,name=iPhone 6' test
+ ```
 
-2. Install python wda client
+2. Install node wda client (wait for update to npm when this project complete)
 
-	```
-	pip install --pre facebook-wda
-	```
+ ```
+ ...
+ ```
 
 ## TCP connection over USB (optional)
 You can use wifi network, it is very convinient, but not very stable enough.
@@ -31,29 +33,23 @@ I found a tools named `iproxy` which can forward device port to localhost, it\'s
 The usage is very simple `iproxy <local port> <remote port> [udid]`
 
 ## Configuration
-```python
-import wda
-
-wda.DEBUG = False # default False
-wda.HTTP_TIMEOUT = 60.0 # default 60.0 seconds
+```javascript
+import wda from wda
 ```
 
 ## How to use
 ### Create a client
 
-```py
-import wda
+```javascript
+import wda from wda
 
-# Enable debug will see http Request and Response
-# wda.DEBUG = True
-c = wda.Client('http://localhost:8100')
+const c = new wda.Client('http://localhost:8100')
 
-# get env from $DEVICE_URL if no arguments pass to wda.Client
 # http://localhost:8100 is the default value if $DEVICE_URL is empty
 c = wda.Client()
 ```
 
-A `wda.WDAError` will be raised if communite with WDA went wrong.
+
 
 
 ### Client
@@ -315,44 +311,44 @@ s.set_alert_callback(_alert_callback)
 
 # do operations, when alert popup, it will auto accept
 s(type="Button").click()
-```	
+```
 
 ## iOS Build-in Apps
 **苹果自带应用**
 
-|   Name | Bundle ID          |
-|--------|--------------------|
-| iMovie | com.apple.iMovie |
-| Apple Store | com.apple.AppStore |
-| Weather | com.apple.weather |
-| 相机Camera | com.apple.camera |
-| iBooks | com.apple.iBooks |
-| Health | com.apple.Health |
-| Settings | com.apple.Preferences |
-| Watch | com.apple.Bridge |
-| Maps | com.apple.Maps |
-| Game Center | com.apple.gamecenter |
-| Wallet | com.apple.Passbook |
-| 电话 | com.apple.mobilephone |
-| 备忘录 | com.apple.mobilenotes |
-| 指南针 | com.apple.compass |
-| 浏览器 | com.apple.mobilesafari |
-| 日历 | com.apple.mobilecal |
-| 信息 | com.apple.MobileSMS |
-| 时钟 | com.apple.mobiletimer |
-| 照片 | com.apple.mobileslideshow |
-| 提醒事项 | com.apple.reminders |
-| Desktop | com.apple.springboard (Start this will cause your iPhone reboot) |
+| Name        | Bundle ID                                |
+| ----------- | ---------------------------------------- |
+| iMovie      | com.apple.iMovie                         |
+| Apple Store | com.apple.AppStore                       |
+| Weather     | com.apple.weather                        |
+| 相机Camera    | com.apple.camera                         |
+| iBooks      | com.apple.iBooks                         |
+| Health      | com.apple.Health                         |
+| Settings    | com.apple.Preferences                    |
+| Watch       | com.apple.Bridge                         |
+| Maps        | com.apple.Maps                           |
+| Game Center | com.apple.gamecenter                     |
+| Wallet      | com.apple.Passbook                       |
+| 电话          | com.apple.mobilephone                    |
+| 备忘录         | com.apple.mobilenotes                    |
+| 指南针         | com.apple.compass                        |
+| 浏览器         | com.apple.mobilesafari                   |
+| 日历          | com.apple.mobilecal                      |
+| 信息          | com.apple.MobileSMS                      |
+| 时钟          | com.apple.mobiletimer                    |
+| 照片          | com.apple.mobileslideshow                |
+| 提醒事项        | com.apple.reminders                      |
+| Desktop     | com.apple.springboard (Start this will cause your iPhone reboot) |
 
 **第三方应用 Thirdparty**
 
-|   Name | Bundle ID          |
-|--------|--------------------|
-| 腾讯QQ | com.tencent.mqq |
-| 微信 | com.tencent.xin |
-| 部落冲突 | com.supercell.magic |
-| 钉钉 | com.laiwang.DingTalk |
-| Skype | com.skype.tomskype |
+| Name   | Bundle ID             |
+| ------ | --------------------- |
+| 腾讯QQ   | com.tencent.mqq       |
+| 微信     | com.tencent.xin       |
+| 部落冲突   | com.supercell.magic   |
+| 钉钉     | com.laiwang.DingTalk  |
+| Skype  | com.skype.tomskype    |
 | Chrome | com.google.chrome.ios |
 
 
