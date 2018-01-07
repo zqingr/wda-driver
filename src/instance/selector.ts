@@ -144,7 +144,9 @@ class Selector {
    */
   private async wdasearch (using: string, value: string): Promise<any[]> {
     const elementIds: any[] = []
-    const { value: data } = await this.http.fetch('post', '/elements', { using , value })
+    let { value: data } = await this.http.fetch('post', '/elements', { using , value })
+    data = typeof data === 'string' ? [] : data
+
     data.forEach((d: any) => {
       elementIds.push(d['ELEMENT'])
     })
@@ -238,7 +240,7 @@ class Selector {
       if (elems.length > 0){
         return elems[0]
       }     
-      if (startTime + timeout < new Date().getTime()) {
+      if (startTime + (timeout * 1000) < new Date().getTime()) {
         break
       }
      await sleep(10)
@@ -295,8 +297,8 @@ class Selector {
 
   async waitGone (timeout: number = this.timeout) {
     const startTime = new Date().getTime()
-    while (startTime + timeout > new Date().getTime()) {
-      if (await this.exists()) {
+    while (startTime + (timeout * 1000) > new Date().getTime()) {
+      if (!await this.exists()) {
         return true
       }
     }

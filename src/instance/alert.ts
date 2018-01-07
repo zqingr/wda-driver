@@ -27,11 +27,11 @@ class Alert {
 
   async wait (timeout: number = 20) {
     const startTime = new Date().getTime()
-    while (new Date().getTime() - startTime < timeout) {
+    while (new Date().getTime() - startTime < (timeout * 1000)) {
       if ( await this.exists() ) {
         return true
       }
-      await sleep(0.2)
+      await sleep(20)
     } 
     return false
   }

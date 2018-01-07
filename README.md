@@ -174,50 +174,52 @@ await e.tap() // tap element
 
 Click element if exists
 
-```python
-s(text='Dashboard').click_exists() # return immediately if not found
-s(text='Dashboard').click_exists(timeout=5.0) # wait for 5s
+```javascript
+await s.selector({text: 'Dashboard'}).clickExists() // return immediately if not found
+
+await s.selector({text: 'Dashboard'}).clickExists(50) // wait for 5s
 ```
 
 Other Element operations
 
-```python
+```javascript
 // Check if elements exists
-print s(text="Dashboard").exists
+console.log(await s.selector({text: 'Dashboard'}).exists())
 
 // Find all matches elements, return Array of Element object
-s(text='Dashboard').find_elements()
+await s.selector({className: 'Other'}).findElements()
 
 // Use index to find second element
-s(text='Dashboard')[1].exists
+await s.selector({className: 'Other', index: 2}).exists()
 
 // Use child to search sub elements
-s(text='Dashboard').child(className='Cell').exists
+await s.selector({text: 'Dashboard'}).child({className: 'Cell'}).exists()
 
 // Default timeout is 10 seconds
 // But you can change by
-s.set_timeout(10.0)
+s.setTimeout(100000)
 
 // do element operations
-e.tap()
-e.click() # alias of tap
-e.clear_text()
-e.set_text("Hello world")
-e.tap_hold(2.0) # tapAndHold for 2.0s
+await e.tap()
+await e.click() // alias of tap
+// The default keyboard must be requested
+await e.clearText()
+await e.setText("Hello world")
+await e.tapHold(2) // tapAndHold for 2.0s
 
-e.scroll() # scroll to make element visiable
+await e.scroll() // scroll to make element visiable
 
 // directions can be "up", "down", "left", "right"
 // swipe distance default to its height or width according to the direction
-e.scroll('up')
+await e.scroll('up')
 
 // Set text
-e.set_text("Hello WDA") # normal usage
-e.set_text("Hello WDA\n") # send text with enter
-e.set_text("\b\b\b") # delete 3 chars
+await e.setText("Hello WDA") // normal usage
+await e.setText("Hello WDA\n") // send text with enter
+await e.setText("\b\b\b") // delete 3 chars
 
 // Wait element gone
-s(text='Dashboard').wait_gone(timeout=10.0)
+await s({className: 'Other'}).waitGone(10)
 
 // Swipe
 s(className="Image").swipe("left")

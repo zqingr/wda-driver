@@ -35,10 +35,15 @@ async function start () {
   // await s.tapHold(100, 400, 8)
   // await s.keyboardDismiss()
   // const selector = await s.selector({name: "切换到语音输入", label: "切换到语音输入"})
-  const element = await s.selector({name: '表情'}).clickExists()
-  console.log(element)
+  // const element = await s.selector({name: '表ss情'}).clickExists()
+  // const e = await s.selector({type: 'TextView'}).get()
+
   // const element = await selector.get(10)
-  // await element.tap()
+  // await element.clearText()
+  // await e.setText('asdasdasdsd')
+  // await e.setText('\b\b\b')
+  console.log(await s.selector({type: 'TextView'}).waitGone(10))
+  // await e.tap()
 
   // console.log(await selector.exists())
 }
