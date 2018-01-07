@@ -34,7 +34,13 @@ async function start () {
   // await s.swipe(100, 400, 200, 400, .1)
   // await s.tapHold(100, 400, 8)
   // await s.keyboardDismiss()
-  console.log(await s.selector(id="URL").exists)
+  // const selector = await s.selector({name: "切换到语音输入", label: "切换到语音输入"})
+  const element = await s.selector({name: '表情'}).clickExists()
+  console.log(element)
+  // const element = await selector.get(10)
+  // await element.tap()
+
+  // console.log(await selector.exists())
 }
 
 start()

@@ -124,7 +124,7 @@ class Selector {
    * @param v
    * @return string with properly formated quotes, or non changed text
    */
-  private addEscapeCharacterForQuotePrimeCharacter (text: string) {
+  private addEscapeCharacterForQuotePrimeCharacter (text: string = '') {
     return text.replace("'", "\\'").replace('"','\\"')
   }
 
@@ -275,11 +275,13 @@ class Selector {
    * @returns bool: if successfully clicked
    */
   async clickExists (timeout: number = 0) {
-    const e = await this.get(timeout)
-    if (!e) {
+    let e: Element
+    try {
+      e = await this.get(timeout)
+    } catch (e) {
       return false
     }
-    e.click()
+    await e.click()
     return true
   }
 

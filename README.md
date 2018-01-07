@@ -130,68 +130,46 @@ await s.tapHold(x, y, 1.0)
 ### Find element
 > Note: if element not found, will throw error
 
-```python
-// For example, expect: True or False
+```javascript
+// For example, expect: true or false
 // using id to find element and check if exists
-s(id="URL").exists # return True or False
+const selector = s.selector({id: "URL"})
+await selector.exists() // return true or false
 
 // using id or other query conditions
-s(id='URL')
-s(name='URL')
-s(text="URL") # text is alias of name
-s(nameContains='UR')
-s(label='Address')
-s(labelContains='Addr')
-s(name='URL', index=1) # find the second element. index starts from 0
+s.selector({id: 'URL'})
+s.selector({name: 'URL'})
+s.selector({text: "URL"}) // text is alias of name
+s.selector({nameContains: 'UR'})
+s.selector({label: 'Address'})
+s.selector({labelContains: 'Addr'})
+s.selector({name:'URL', index: 1}) # find the second element. index starts from 0
 
 // combines search conditions
 // attributes bellow can combines
 // :"className", "name", "label", "visible", "enabled"
-s(className='Button', name='URL', visible=True, labelContains="Addr")
+
+s.selector({className: 'Button', name: 'URL', visible: true, labelContains: "Addr"})
 ```
 
 More powerful findding method
 
-```python
-s(xpath='//Button[@name="URL"]')
-s(classChain='**/Button[`name == "URL"`]')
-s(predicate='name LIKE "UR*"')
-s('name LIKE "U*L"') # predicate is the first argument, without predicate= is ok
+```javascript
+s.selector({xpath: '//Button[@name="URL"]'})
+s.selector({classChain: '**/Button[`name == "URL"`]'})
+s.selector({predicate: 'name LIKE "UR*"'})
 ```
 
 ### Element operations (eg: `tap`, `scroll`, `set_text` etc...)
 Exmaple search element and tap
 
-```python
+```javascript
 // Get first match Element object
-// The function get() is very important.
+// The function get() is very important.it will return an Element object
 // when elements founded in 10 seconds(:default:), Element object returns
-// or WDAElementNotFoundError raises
-e = s(text='Dashboard').get(timeout=10.0)
-// s(text='Dashboard') is Selector
-// e is Element object
-e.tap() # tap element
-```
 
->Some times, I just hate to type `.get()`
-
-Using python magic tricks to do it again.
-
-```python
-// 	using python magic function "__getattr__", it is ok with out type "get()"
-s(text='Dashboard').tap()
-// same as
-s(text='Dashboard').get().tap()
-```
-
-Note: Python magic tricks can not used on get attributes
-
-```python
-// Accessing attrbutes, you have to use get()
-s(text='Dashboard').get().value
-
-// Not right
-// s(text='Dashboard').value # Bad, always return None
+const e = await s.selector({text: 'Dashboard'}).get(10) // e is elements object
+await e.tap() // tap element
 ```
 
 Click element if exists
@@ -360,13 +338,6 @@ Source code
 
 - [Router](https://github.com/facebook/WebDriverAgent/blob/master/WebDriverAgentLib/Commands/FBElementCommands.m#L62)
 - [Alert](https://github.com/facebook/WebDriverAgent/blob/master/WebDriverAgentLib/Commands/FBAlertViewCommands.m#L25)
-
-## Articles
-* <https://testerhome.com/topics/5524> By [diaojunxiam](https://github.com/diaojunxian)
-
-## Contributors
-* [diaojunxian](https://github.com/diaojunxian)
-* [iquicktest](https://github.com/iquicktest)
 
 ## DESIGN
 [DESIGN](DESIGN.md)
