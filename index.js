@@ -48,7 +48,9 @@ async function start () {
   // console.log(await e.getAccessibilityContainer())
   // console.log(await e.getBounds())
   // console.log(await s.alert().wait(10))
-  console.log(await s.alert().exists())
+  // console.log(await s.alert().exists())
+  console.log(await s.alert().buttons())
+  // console.log(await s.alert().click('取消'))
 
   // console.log(await selector.exists())
 }

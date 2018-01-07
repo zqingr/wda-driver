@@ -258,32 +258,15 @@ console.log(await s.alert().exists())
 console.log(await s.alert().text())
 console.log(await s.alert().text())
 
-s.alert.accept() # Actually do click first alert button
-s.alert.dismiss() # Actually do click second alert button
-s.alert.wait(5) # if alert apper in 5 second it will return True,else return False (default 20.0)
-s.alert.wait() # wait alert apper in 2 second
+await s.alert().accept() // Actually do click first alert button
+await s.alert().dismiss() // Actually do click second alert button
+await s.alert().wait(5) // if alert apper in 5 second it will return true,else return false (default 20.0)
+await s.alert().wait() // wait alert apper in 20 second
 
-s.alert.buttons()
+await s.alert().buttons()
 // example return: ["设置", "好"]
 
-s.alert.click("设置")
-```
-
-## How to handle alert message automaticly (need more tests)
-For example
-
-```python
-import wda
-
-s = wda.Client().session()
-
-def _alert_callback(session):
-    session.alert.accept()
-
-s.set_alert_callback(_alert_callback)
-
-// do operations, when alert popup, it will auto accept
-s(type="Button").click()
+await s.alert().click('好')
 ```
 
 ## iOS Build-in Apps
@@ -333,9 +316,6 @@ List apps with command
 ```sh
 $ ideviceinstaller -l
 ```
-
-## Tests
-测试的用例放在`tests/`目录下，使用iphone SE作为测试机型，系统语言应用。调度框架`pytest`
 
 ## Reference
 Source code

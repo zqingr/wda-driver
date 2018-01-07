@@ -47,6 +47,7 @@ class Alert {
 
   async buttons () {
     const { value } = await this.http.fetch('get', '/wda/alert/buttons')
+
     return value
   }
 
