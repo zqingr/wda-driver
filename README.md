@@ -19,7 +19,7 @@ Most functions finished.
  xcodebuild -project WebDriverAgent.xcodeproj -scheme WebDriverAgentRunner -destination 'platform=iOS Simulator,name=iPhone 6' test
  ```
 
-2. Install node wda client (wait for update to npm when this project complete)
+2. Install node wda client (wait for update to npm)
 
  ```
  ...
