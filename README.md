@@ -211,7 +211,7 @@ await e.scroll() // scroll to make element visiable
 
 // directions can be "up", "down", "left", "right"
 // swipe distance default to its height or width according to the direction
-await e.scroll('up')
+await e.scroll('up', 100)
 
 // Set text
 await e.setText("Hello WDA") // normal usage
@@ -221,33 +221,43 @@ await e.setText("\b\b\b") // delete 3 chars
 // Wait element gone
 await s({className: 'Other'}).waitGone(10)
 
-// Swipe
-s(className="Image").swipe("left")
+// Swipe TODO
+// s(className="Image").swipe("left")
 
 // Pinch
-s(className="Map").pinch(2, 1) # scale=2, speed=1
-s(className="Map").pinch(0.1, -1) # scale=0.1, speed=-1 (I donot very understand too)
+s(className="Map").pinch(2, 1) // scale=2, speed=1
+s(className="Map").pinch(0.1, -1) // scale=0.1, speed=-1 (I donot very understand too)
 
 // properties (bool)
-e.accessible
-e.displayed
-e.enabled
+await e.getAccessible()
+await e.getDisplayed()
+await e.getEnabled()
+await e.getVisible()
+await e.getAccessibilityContainer()
 
 // properties (str)
-e.text # ex: Dashboard
-e.className # ex: XCUIElementTypeStaticText
-e.value # ex: github.com
+await e.getId() 
+await e.getLabel()
+await e.getClassName()
+await e.getText()
+await e.getName()
+await e.getDisplayed()
+await e.getEnabled()
+await e.getValue()
+await e.getValue()
 
 // Bounds return namedtuple
-rect = e.bounds # ex: Rect(x=144, y=28, width=88.0, height=27.0)
-rect.x # expect 144
+const rect = await e.getBounds() // Rect { x: 0, y: 73, width: 375, height: 666 }
+rect.y // 73
 ```
 
 Alert
 
-```python
-print s.alert.exists
-print s.alert.text
+```javascript
+console.log(await s.alert().exists())
+console.log(await s.alert().text())
+console.log(await s.alert().text())
+
 s.alert.accept() # Actually do click first alert button
 s.alert.dismiss() # Actually do click second alert button
 s.alert.wait(5) # if alert apper in 5 second it will return True,else return False (default 20.0)
@@ -258,14 +268,6 @@ s.alert.buttons()
 
 s.alert.click("设置")
 ```
-
-## TODO
-longTap not done pinch(not found in WDA)
-
-TouchID
-
-* Match Touch ID
-* Do not match Touch ID
 
 ## How to handle alert message automaticly (need more tests)
 For example

@@ -36,14 +36,19 @@ async function start () {
   // await s.keyboardDismiss()
   // const selector = await s.selector({name: "切换到语音输入", label: "切换到语音输入"})
   // const element = await s.selector({name: '表ss情'}).clickExists()
-  // const e = await s.selector({type: 'TextView'}).get()
+  // const e = await s.selector({type: 'Window'}).get()
 
   // const element = await selector.get(10)
   // await element.clearText()
   // await e.setText('asdasdasdsd')
   // await e.setText('\b\b\b')
-  console.log(await s.selector({type: 'TextView'}).waitGone(10))
+  // console.log(await s.selector({type: 'Other'}).waitGone(10))
   // await e.tap()
+  // await e.pinch(0.1, -1)
+  // console.log(await e.getAccessibilityContainer())
+  // console.log(await e.getBounds())
+  // console.log(await s.alert().wait(10))
+  console.log(await s.alert().exists())
 
   // console.log(await selector.exists())
 }

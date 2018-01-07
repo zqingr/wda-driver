@@ -18,13 +18,13 @@ class Element {
   }
 
   private async prop (key: string) {
-    const { data } = await this.req('get', '/' + key.replace(/\/$/, ''))
-    return data
+    const { value } = await this.req('get', '/' + key.replace(/\/$/, ''))
+    return value
   }
 
   private async wdaProp (key: string) {
-    const { data } = await this.wdaReq('get', '/' + key.replace(/\/$/, ''))
-    return data
+    const { value } = await this.wdaReq('get', '/' + key.replace(/\/$/, ''))
+    return value
   }
 
   getId () {

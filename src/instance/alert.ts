@@ -12,17 +12,18 @@ class Alert {
   }
 
   async exists () {
+    let text: string
     try {
-      await this.text()
+      text = await this.text()
     } catch (e) {
       return false
     }
-    return true
+    return !!text
   }
 
   async text () {
     const { value } = await this.http.fetch('get', '/alert/text')
-    return value
+    return typeof value === 'string' ? value : ''
   }
 
   async wait (timeout: number = 20) {
