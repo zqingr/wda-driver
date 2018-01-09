@@ -1,4 +1,4 @@
-# node-wda
+# wda-driver
 
 Facebook WebDriverAgent Node Client Library (not official)
 
@@ -19,10 +19,10 @@ Most functions finished.
  xcodebuild -project WebDriverAgent.xcodeproj -scheme WebDriverAgentRunner -destination 'platform=iOS Simulator,name=iPhone 6' test
  ```
 
-2. Install node wda client (wait for update to npm)
+2. Install wda-driver client
 
  ```
- ...
+npm install --save wda-driver
  ```
 
 ## TCP connection over USB (optional)
@@ -34,14 +34,14 @@ The usage is very simple `iproxy <local port> <remote port> [udid]`
 
 ## Configuration
 ```javascript
-import wda from wda
+const wda = require('wda-driver')
 ```
 
 ## How to use
 ### Create a client
 
 ```javascript
-import wda from wda
+const wda = require('wda-driver')
 
 const c = new wda.Client('http://localhost:8100')
 

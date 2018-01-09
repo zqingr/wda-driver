@@ -15,5 +15,28 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "url-join": "^2.0.2"
-  }
+  },
+  "name": "wda-driver",
+  "description": "Facebook WebDriverAgent Node Client Library (not official)",
+  "version": "1.0.1",
+  "main": "dist/wda.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zqingr/node-wda.git"
+  },
+  "keywords": [
+    "wda",
+    "WebDriverAgent",
+    "Appium",
+    "ios"
+  ],
+  "author": "zqi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zqingr/node-wda/issues"
+  },
+  "homepage": "https://github.com/zqingr/node-wda#readme"
 }
