@@ -1,80 +1,82 @@
 # wda-driver
-[中文版](https://github.com/zqingr/wda-driver/tree/master/doc/README_CN.md)
 
-Facebook WebDriverAgent Node Client Library (not official)
+Facebook WebDriverAgent的Node库 
 
-Most functions finished.
+大部分功能都已经完成
 
-## Installation
-1. You need to start WebDriverAgent by yourself
+## 安装
+1. 你需要自己安装和启动 WebDriverAgent
 
- Follow the instructions in <https://github.com/facebook/WebDriverAgent>
+可以跟着官方文档安装： <https://github.com/facebook/WebDriverAgent>
 
- It is better to start with Xcode to prevent CodeSign issues.
+你可以从xcode里面启动调试程序
 
- But it is also ok to start WDA with command line.
+也可以直接命令行启动
 
  ```
  xcodebuild -project WebDriverAgent.xcodeproj -scheme WebDriverAgentRunner -destination 'platform=iOS Simulator,name=iPhone 6' test
  ```
 
-2. Install wda-driver client
+2. 安装wda-driver
 
  ```
 npm install --save wda-driver
  ```
 
-## TCP connection over USB (optional)
-You can use wifi network, it is very convinient, but not very stable enough.
+## TCP 有时候连接不上 (可选)
+你可以直接用wda提供的网络地址，但是不太稳定，有时候会出现连接不上的问题
 
-I found a tools named `iproxy` which can forward device port to localhost, it\'s source code is here <https://github.com/libimobiledevice/libusbmuxd>
+可以安装iproxy工具 <https://github.com/libimobiledevice/libusbmuxd>
 
-The usage is very simple `iproxy <local port> <remote port> [udid]`
+开启非常简单 `iproxy <local port> <remote port> [udid]`
 
-## Configuration
+例如：```iproxy 8100 8100```
+
+## 引用
 ```javascript
 const wda = require('wda-driver')
 ```
 
-## How to use
-### Create a client
+## 如何使用
+### 建立一个客户端
 
 ```javascript
 const wda = require('wda-driver')
 
 const c = new wda.Client('http://localhost:8100')
 
-// http://localhost:8100 is the default value
+// http://localhost:8100 是默认值，你可以直接这样
 c = wda.Client()
 ```
 
-### Client
+### 客户端操作
 
 ```javascript
-// Show status
+// 查看客户端状态
 console.log(await c.status())
 
-// Press home button
+// 点击home按钮
 await c.home()
 
 // Hit healthcheck
 await c.healthcheck()
 
-// Get page source
+// 获取 page source
 
-// format (str): only 'xml' and 'json' source types are supported
-// accessible (bool): when set to true, format is always 'json'
-const source = await c.source() // format XML
-const source = await c.source(null, true) // default false, format JSON
+// 两个参数
+// format (str): 'xml' 或 'json' 
+// accessible (bool): 设置为true的时候，只返回json
+const source = await c.source() // 格式为 XML
+const source = await c.source(null, true) // 默认 false, 格式为 JSON
 ```
 
-Take screenshot, only can save format png
+截取屏幕，只支持png格式的图片
 
 ```javascript
 await c.screenshot('screen.png')
 ```
 
-Open app
+打开 app
 
 ```javascript
 const s = await c.session('com.apple.Health')
@@ -82,75 +84,72 @@ console.log(await s.orientation())
 await s.close()
 ```
 
-For web browser like Safari you can define page whit which will be opened:
+浏览器可以这样带网址的打开:
 ```javascript
 const s = await c.session('com.apple.mobilesafari', ['-u', 'https://www.google.com/ncr'])
 console.log(await s.orientation())
 await s.close()
 ```
 
-### Session operations
+### 对话操作
 ```javascript
-// Current bundleId and sessionId
+// 当前的 bundleId 和 sessionId
 console.log(s.getId(), s.getBundleId())
 
-// One of <PORTRAIT | LANDSCAPE>
-console.log(await s.orientation()) // expect PORTRAIT
+// <PORTRAIT 或者 LANDSCAPE>
+console.log(await s.orientation()) // PORTRAIT
 
-// Change orientation
+// 改变方向
 // LANDSCAPE | PORTRAIT | UIA_DEVICE_ORIENTATION_LANDSCAPERIGHT |UIA_DEVICE_ORIENTATION_PORTRAIT_UPSIDEDOWN
 await s.orientation(orientation)
 
-// Deactivate App for some time
+// 让app进入后台5秒钟
 await s.deactivate(5) // 5s
 
-// Get width and height
+// 获取高度和宽度
 console.log(await s.getWindowSize())
-// Expect json output
-// For example: {'height': 736, 'width': 414}
+// 返回例子: {'height': 736, 'width': 414}
 
-// Simulate touch
+// 根据坐标点击屏幕
 await s.tap(88, 200)
 
-// Double touch
+// 双击屏幕
 await s.doubleTap(200, 200)
 
-// Simulate swipe, utilizing drag api
+// 滑动相关的方法
 await s.swipe(x1, y1, x2, y2, 0.5) // 0.5s
 await s.swipeLeft()
 await s.swipeRight()
 await s.swipeUp()
 await s.swipeDown()
 
-// tap hold
+// 长按屏幕
 await s.tapHold(x, y, 1.0)
 ```
 
-### Find element
-
+### 查找元素
 ```javascript
-// For example, expect: true or false
-// using id to find element and check if exists
+// 用获取的session的selector方法查找元素
 const selector = s.selector({id: "URL"})
 await selector.exists() // return true or false
 
-// using id or other query conditions
+// 用id等查询元素
 s.selector({id: 'URL'})
 s.selector({name: 'URL'})
-s.selector({text: "URL"}) // text is alias of name
+s.selector({text: "URL"}) // text是name的别名
 s.selector({nameContains: 'UR'})
 s.selector({label: 'Address'})
 s.selector({labelContains: 'Addr'})
-s.selector({name:'URL', index: 1}) # find the second element. index starts from 0
+s.selector({name:'URL', index: 1}) // 查找第二个name为URL的元素
 
-// combines search conditions
-// attributes bellow can combines
+// 合并查询
+// 属性可以选择一下元素
 // :"className", "name", "label", "visible", "enabled"
 
 s.selector({className: 'Button', name: 'URL', visible: true, labelContains: "Addr"})
 ```
 
-More powerful findding method
+更多牛逼的查询方式
 
 ```javascript
 s.selector({xpath: '//Button[@name="URL"]'})
@@ -158,82 +157,82 @@ s.selector({classChain: '**/Button[`name == "URL"`]'})
 s.selector({predicate: 'name LIKE "UR*"'})
 ```
 
-### Element operations (eg: `tap`, `scroll`, `set_text` etc...)
-Exmaple search element and tap
+### 元素操作 (例如: `tap`, `scroll`, `set_text` 等...)
+例子：查找一个元素然后点击他
 
 ```javascript
-// Get first match Element object
-// The function get() is very important.it will return an Element object
-// when elements founded in 10 seconds(:default:), Element object returns
+// 查找第一个text为Dashboard的元素
+// function get() 非常重要.执行后才会返回一个元素对象
+// 如果元素在10(默认)秒内查找到了, 就会返回一个元素对象
 
-const e = await s.selector({text: 'Dashboard'}).get(10) // e is elements object
-await e.tap() // tap element
+const e = await s.selector({text: 'Dashboard'}).get(10) // e 是一个元素对象
+await e.tap() // 点击元素
 ```
 
-Click element if exists
+如果元素存在点击元素
 
 ```javascript
-await s.selector({text: 'Dashboard'}).clickExists() // return immediately if not found
+await s.selector({text: 'Dashboard'}).clickExists() // 如果不存在会立刻返回
 
-await s.selector({text: 'Dashboard'}).clickExists(5) // wait for 5s
+await s.selector({text: 'Dashboard'}).clickExists(5) // 等待5秒
 ```
 
-Other Element operations
+其它的元素查找
 
 ```javascript
-// Check if elements exists
+// 查找元素是否存在
 console.log(await s.selector({text: 'Dashboard'}).exists())
 
-// Find all matches elements, return Array of Element object
+// 查找所有匹配的元素
 await s.selector({className: 'Other'}).findElements()
 
-// Use index to find second element
+// 查找第二个元素
 await s.selector({className: 'Other', index: 2}).exists()
 
-// Use child to search sub elements
+// 查找子元素
 await s.selector({text: 'Dashboard'}).child({className: 'Cell'}).exists()
 
-// Default timeout is 10 seconds
-// But you can change by
+// 默认是10秒
+// 但是你可以自己设置
 s.setTimeout(50)
 
-// do element operations
+// 元素操作
 await e.tap()
-await e.click() // alias of tap
-// The default keyboard must be requested
+await e.click() // tap的别名
+// 必须是系统默认键盘，搜狗测试的不行
 await e.clearText()
 await e.setText("Hello world")
-await e.tapHold(2) // tapAndHold for 2.0s
+await e.tapHold(2) // 长按2秒
 
-await e.scroll() // scroll to make element visiable
+await e.scroll() // 滚动到元素可见出
 
-// directions can be "up", "down", "left", "right"
-// swipe distance default to its height or width according to the direction
+// 方向可以使 "up", "down", "left", "right"
+// 也可以指定移动的距离
 await e.scroll('up', 100)
 
-// Set text
-await e.setText("Hello WDA") // normal usage
-await e.setText("Hello WDA\n") // send text with enter
-await e.setText("\b\b\b") // delete 3 chars
+// 发送文字
+await e.setText("Hello WDA") // 一般用法
+await e.setText("Hello WDA\n") // 发送回车
+await e.setText("\b\b\b") // 删除三个字符
 
-// Wait element gone
+// 等待元素小时
 await s({className: 'Other'}).waitGone(10)
 
 // Swipe TODO
 // s(className="Image").swipe("left")
 
-// Pinch
+// 宋芳
 s(className="Map").pinch(2, 1) // scale=2, speed=1
-s(className="Map").pinch(0.1, -1) // scale=0.1, speed=-1 (I donot very understand too)
+s(className="Map").pinch(0.1, -1) // scale=0.1, speed=-1
 
-// properties (bool)
+// 获取属性 (boolean)
 await e.getAccessible()
 await e.getDisplayed()
 await e.getEnabled()
 await e.getVisible()
 await e.getAccessibilityContainer()
 
-// properties (str)
+// 或许属性 (字符串)
 await e.getId() 
 await e.getLabel()
 await e.getClassName()
@@ -244,25 +243,25 @@ await e.getEnabled()
 await e.getValue()
 await e.getValue()
 
-// Bounds return namedtuple
+// 返回元素的边界
 const rect = await e.getBounds() // Rect { x: 0, y: 73, width: 375, height: 666 }
 rect.y // 73
 ```
 
-Alert
+警告框
 
 ```javascript
 console.log(await s.alert().exists())
 console.log(await s.alert().text())
 console.log(await s.alert().text())
 
-await s.alert().accept() // Actually do click first alert button
-await s.alert().dismiss() // Actually do click second alert button
-await s.alert().wait(5) // if alert apper in 5 second it will return true,else return false (default 20.0)
-await s.alert().wait() // wait alert apper in 20 second
+await s.alert().accept() // 其实点击的左侧按钮
+await s.alert().dismiss() // 其实点击的第二个按钮
+await s.alert().wait(5) // 等待5秒弹框出现
+await s.alert().wait() // 默认等待20秒弹窗出现
 
 await s.alert().buttons()
-// example return: ["设置", "好"]
+// 例如返回 return: ["设置", "好"]
 
 await s.alert().click('好')
 ```
@@ -306,17 +305,17 @@ await s.alert().click('好')
 | Chrome | com.google.chrome.ios |
 
 
-Another way to list apps installed on you phone is use `ideviceinstaller`
-install with `brew install ideviceinstaller`
+另一个获取你手机里面app列表的方法是用 `ideviceinstaller`
+安装 `brew install ideviceinstaller`
 
-List apps with command
+显示列表
 
 ```sh
 $ ideviceinstaller -l
 ```
 
 ## Reference
-This project is a transplant by https://github.com/openatx/facebook-wda
+这个项目移植的python项目 https://github.com/openatx/facebook-wda
 
 Source code
 

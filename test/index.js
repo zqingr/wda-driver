@@ -1,16 +1,4 @@
 const wda = require('./dist/wda')
-const PNG = require("png-js")
-
-function getPixelsPro (imgPath) {
-  return new Promise((resolve, reject) => {
-    PNG.decode(imgPath, function (pixels) {
-      // if (err) {
-      //   reject(err)
-      // }
-      resolve(pixels)
-    })
-  })
-}
 
 const c = new wda.Client('http://localhost:8100')
 

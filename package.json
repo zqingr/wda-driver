@@ -18,14 +18,14 @@
   },
   "name": "wda-driver",
   "description": "Facebook WebDriverAgent Node Client Library (not official)",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "dist/wda.js",
   "directories": {
     "test": "test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zqingr/node-wda.git"
+    "url": "git+https://github.com/zqingr/wda-driver.git"
   },
   "keywords": [
     "wda",
