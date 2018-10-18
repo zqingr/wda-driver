@@ -45,7 +45,7 @@ const wda = require('wda-driver')
 const c = new wda.Client('http://localhost:8100')
 
 // http://localhost:8100 is the default value
-c = wda.Client()
+// Or you can use c = wda.Client() directly
 ```
 
 ### Client
